@@ -1,5 +1,6 @@
 package org.daft;
 
+import org.jsoup.Jsoup;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

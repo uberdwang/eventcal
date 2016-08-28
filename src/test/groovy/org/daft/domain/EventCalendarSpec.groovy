@@ -1,8 +1,5 @@
-package org.daft
+package org.daft.domain
 
-import org.daft.domain.Event
-import org.daft.domain.EventCalendar
-import org.daft.domain.Venue
 import spock.lang.Specification
 
 /**
@@ -32,7 +29,7 @@ class EventCalendarSpec extends Specification {
         assert storedEvents.get("eventName") == testEvent;
     }
 
-    def "It stores multiple events" () {
+    def "It stores multiple events by event name" () {
         given:
         eventCalendar.add(testEvent);
 
@@ -53,6 +50,48 @@ class EventCalendarSpec extends Specification {
         assert storedEvents.get("eventName3") == testEvent3;
     }
 
+    def "It stores multiple events by day" () {
+        given:
+        Date day1 = CreateDay(1);
+        Date day2 = CreateDay(2);
+
+        Event testEvent1 = new Event("eventName1", day1, testVenue);
+        eventCalendar.add(testEvent1);
+
+        Event testEvent2 = new Event("eventName2", day2, testVenue);
+        eventCalendar.add(testEvent2);
+
+        when:
+        Map<String, Event> storedEvents1= eventCalendar.getByDate(day1);
+        Map<String, Event> storedEvents2= eventCalendar.getByDate(day2);
+        
+        then:
+        assert storedEvents1 != null;
+        assert storedEvents1.size() == 1;
+        assert storedEvents1.get("eventName1") == testEvent1;
+        assert storedEvents2 != null;
+        assert storedEvents2.size() == 1;
+        assert storedEvents2.get("eventName2") == testEvent2;
+    }
+
+    def "It retrieves event by name" () {
+        given:
+        Date day1 = CreateDay(1);
+        Date day2 = CreateDay(2);
+        Event testevent1 = new Event("eventName1", day1, testVenue);
+        Event testevent2 = new Event("eventName1", day2, testVenue);
+        eventCalendar.add(testevent1);
+        eventCalendar.add(testevent2);
+        
+        when:
+        List<Event> events = eventCalendar.getByName("eventName1");
+
+        then:
+        assert events != null;
+        assert events.size() == 2;
+        assert events.get(0).getEventName() == "eventName1";
+        assert events.get(1).getEventName() == "eventName1";
+    }
 
     def "It updates events" () {
         given:
@@ -69,5 +108,13 @@ class EventCalendarSpec extends Specification {
         assert storedEvents != null;
         assert storedEvents.size() == 1;
         assert storedEvents.get("eventName").getVenue() == updatedVenue;
+    }
+
+    def Date CreateDay(int daysToAdd) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, daysToAdd);
+        
+        return cal.getTime();
     }
 }

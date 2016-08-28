@@ -25,6 +25,13 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+    }
+}
 
 dependencies {
 	compile(

@@ -1,6 +1,11 @@
 package org.daft.domain;
 
-import java.util.*;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Created by wang on 6/5/16.
@@ -31,4 +36,17 @@ public class EventCalendar {
         EventDay day = new EventDay(date);
         return events.get(day);
     }
+    
+    public List<Event> getByName(String name) {
+        List<Event> result = new ArrayList<>();
+
+        events.forEach( (k,v) -> {
+            if (v.containsKey(name)) {
+                result.add(v.get(name));
+            }
+        });
+
+        return result;
+    }
+    
 }
