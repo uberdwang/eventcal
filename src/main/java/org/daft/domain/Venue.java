@@ -11,7 +11,7 @@ public class Venue {
 
     }
 
-    Venue(String venueName, String address) {
+    public Venue(String venueName, String address) {
         this.venueName = venueName;
         this.address = address;
     }

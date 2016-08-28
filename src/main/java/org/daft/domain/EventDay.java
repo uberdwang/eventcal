@@ -10,7 +10,7 @@ public class EventDay {
     private long day;
     private Date date;
 
-    EventDay(Date date) {
+    public EventDay(Date date) {
         this.date = date;
         this.day = TimeUnit.MILLISECONDS.toDays(date.getTime());
     }

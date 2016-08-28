@@ -10,7 +10,7 @@ public class Event {
     private Date date;
     private Venue venue;
 
-    Event(String eventName, Date date, Venue venue) {
+    public Event(String eventName, Date date, Venue venue) {
         this.eventName = eventName;
         this.date = date;
         this.venue = venue;

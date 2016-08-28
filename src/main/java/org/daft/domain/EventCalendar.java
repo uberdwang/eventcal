@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class EventCalendar {
     private Map<EventDay, Map<String, Event>> events;
 
-    EventCalendar() {
+    public EventCalendar() {
         events = new HashMap<>();
     }
 
